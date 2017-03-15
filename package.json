@@ -1,0 +1,16 @@
+{
+  "name": "express-hello",
+  "version": "0.0.1",
+  "description": "node express demo",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.x",
+    "mysql": "^2.12.0",
+    "orm": "^3.2.3"
+  },
+  "engines": {
+    "node": ">=0.10"
+  }
+}
