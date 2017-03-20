@@ -1,55 +1,63 @@
-var express = require('express'),
-    app = express(),
-    app_port = process.env.VCAP_APP_PORT || 3000;
+"use strict";
+require('./globals');
+const express = require('express');
+const app = express();
+const config = require('./config');
+const app_port = process.env.VCAP_APP_PORT || config.port;
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
-var mysql = require('mysql');
-var mysqlConfig;
-if(process.env.NODE_ENV=="TEST"){
-  mysqlConfig = require('./config-test');
-  console.log("env now is " + process.env.NODE_ENV);
-}else{
-  mysqlConfig = require('./config-prod');
-  console.log("env now is product");
-}
-var connection = mysql.createConnection(mysqlConfig);
-connection.connect();
-
+// 设置静态资源目录
 app.use(express.static(__dirname + '/public'));
 
+// 记录请求日志
+app.use(morgan('tiny'));
+
+// parse `application/x-www-form-urlencoded`
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// parse `application/json`
+app.use(bodyParser.json());
+
+// CORS配置
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
     next();
 });
 
-app.get('/node/annualbill', function(req, res){
-    var orgId = req.query.orgId;
-    var result = {};
-    //查询年度统计
-    connection.query('SELECT * FROM btlbill_2016 WHERE orgId='+orgId, function(err, rows, fields) {
-        if (err) throw err;
-        result.btlbill = rows[0];
-        //查询修车品牌
-        connection.query('SELECT * FROM btlbill_2016_btrbrand WHERE orgId='+orgId+' ORDER BY ps DESC LIMIT 4;', function(err, rows, fields) {
-            if (err) throw err;
-            result.brand = rows;
-            res.json(result);
-        });
+// orm同步数据库中间件
+app.use(require('./middlewares/orm_sync'));
+
+// 业务逻辑分发路由中间件
+app.use(require('./middlewares/route_dispatcher'));
+
+//删除所有与模型相关的数据表
+app.get('/resetModel',(req,res) => {
+    req.db.drop(function (err) {
+      if (err) throw err;
+      res.end("删除成功");
     });
 });
 
-app.get('/node/env', function(req, res){
-  res.writeHead(200, {'Content-Type': 'text/plain;charset=utf-8'});
+// 查看环境变量
+app.get('/node/env', (req, res) => {
+    res.writeHead(200, {'Content-Type': 'text/plain;charset=utf-8'});
 
-  res.write("System Environment:\n\n");
-  for(var env in process.env) {
-    res.write(env + ": " + process.env[env] + "\n");
-  }
+    res.write("System Environment:\n\n");
+    for (var env in process.env) {
+        res.write(env + ": " + process.env[env] + "\n");
+    }
 
-  res.end();
+    res.end();
 });
 
-var server = app.listen(app_port, function(req, res){
-  console.log('Listening on port %d', server.address().port);
+// 打印异常日志
+process.on('uncaughtException', error => {
+    console.log(error);
+});
+
+var server = app.listen(app_port, () => {
+    console.log('Listening on port %d', server.address().port);
 });

@@ -1,0 +1,22 @@
+{
+    "bitwise": true,
+    "curly": true,
+    "eqeqeq": true,
+    "esversion":6,
+    "freeze": true,
+    "indent": true,
+    "latedef": "nofunc",
+    "newcap": true,
+    "noarg": true,
+    "strict": false,
+    "maxparams": 4,
+    "maxdepth": 4,
+    "maxcomplexity": true,
+    "quotmark": false,
+    "undef": true,
+    "unused": true,
+    "browser": true,
+    "devel": true,
+    "jquery": true,
+    "node": true
+}

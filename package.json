@@ -6,9 +6,13 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "3.x",
-    "mysql": "^2.12.0",
-    "orm": "^3.2.3"
+    "body-parser": "^1.15.2",
+    "express": "4.x",
+    "lodash": "^4.16.1",
+    "moment": "^2.18.0",
+    "morgan": "^1.7.0",
+    "orm": "^3.2.3",
+    "pg": "^6.1.4"
   },
   "engines": {
     "node": ">=0.10"
