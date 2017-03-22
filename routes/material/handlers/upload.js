@@ -7,7 +7,7 @@ const fileType = require('file-type');
 const shortid = require('shortid');
 const RouterBase = require('../../../common/routerbase');
 const config = require('../../../config');
-const cos = require('../../../services/cos');
+const qiniu = require("qiniu");
 
 class ImageUploader extends RouterBase {
     constructor() {
@@ -23,7 +23,7 @@ class ImageUploader extends RouterBase {
         this.parseForm()
             .then(({ files }) => {
                 if (!('image' in files)) {
-                    result.msg = '参数错误';
+                    result.msg = '参数错误';//上传的文件字段名为‘image’
                     return;
                 }
 
@@ -32,34 +32,40 @@ class ImageUploader extends RouterBase {
                 const buffer = readChunk.sync(imageFile.path, 0, 262);
                 const resultType = fileType(buffer);
                 if (!resultType || !['image/jpeg', 'image/png'].includes(resultType.mime)) {
-                    result.msg = '仅jpg/png格式';
+                    result.msg = '仅支持jpg/png格式的文件上传';
                     return;
                 }
 
                 let srcpath = imageFile.path;
-                let uploadFolder = (config.cosUploadFolder + '/').replace(/\/+$/, '/');
-                let destpath = `${uploadFolder}${Date.now()}-${shortid.generate()}.${resultType.ext}`;
+                let key = `${shortid.generate()}.${resultType.ext}`;
+                qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
+                qiniu.conf.SECRET_KEY = config.qiniu.SECRET_KEY;
+
+                let token = new qiniu.rs.PutPolicy(config.qiniu.bucket+":"+key).token();
 
                 return new Promise((resolve, reject) => {
-                    cos.upload(srcpath, config.cosFileBucket, destpath, 0, (res) => {
-                        if (res.code === 0) {
-                            result.code = 0;
-                            result.msg = 'ok';
-                            result.data.imgUrl = res.data.access_url;
-
-                            resolve();
-                        } else {
-                            reject();
-                        }
-
-                        // remove uploaded file
-                        fs.unlink(srcpath);
-
-                    });
+                    var extra = new qiniu.io.PutExtra();
+                    qiniu.io.putFile(token, key, srcpath, extra, function(err, ret) {
+                      if(!err) {
+                        // 上传成功， 处理返回值
+                        console.log(ret.hash, ret.key, ret.persistentId);
+                        result.code = 0;
+                        result.msg = 'ok';
+                        result.data.imageUrl = config.qiniu.imageUrlPrefix+key;
+                        resolve();
+                      } else {
+                        // 上传失败， 处理返回代码
+                        console.log(err);
+                        reject();
+                      }
+                      // remove uploaded file
+                      fs.unlink(srcpath);
+                  });
                 });
 
             })
             .catch(e => {
+                console.log(e);
                 if (e.statusCode === 413) {
                     result.msg = `单个不超过${this.MAX_FILE_SIZE}MB`;
                 } else {
@@ -76,7 +82,7 @@ class ImageUploader extends RouterBase {
             encoding: 'utf8',
             maxFilesSize: this.MAX_FILE_SIZE * 1024 * 1024,
             autoFiles: true,
-            uploadDir: path.join(global.SERVER_ROOT, 'tmp'),
+            uploadDir: path.join(global.SERVER_ROOT, 'upload'),
         });
 
         return new Promise((resolve, reject) => {

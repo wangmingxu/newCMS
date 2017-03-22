@@ -6,9 +6,13 @@ const config = require('./config');
 const app_port = process.env.VCAP_APP_PORT || config.port;
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const ueditor = require('ueditor');
+const path = require('path');
 
 // 设置静态资源目录
-app.use(express.static(__dirname + '/public'));
+app.use("/public",express.static(global.STATIC_ROOT));
+
+app.use("/upload",express.static(global.UPLOAD_ROOT));
 
 // 记录请求日志
 app.use(morgan('tiny'));
@@ -32,6 +36,7 @@ app.use(require('./middlewares/orm_sync'));
 
 // 业务逻辑分发路由中间件
 app.use(require('./middlewares/route_dispatcher'));
+
 
 //删除所有与模型相关的数据表
 app.get('/resetModel',(req,res) => {

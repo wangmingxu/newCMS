@@ -6,9 +6,9 @@ module.exports = {
       materialType: ['image','text'],
       content: String,
       materialSize: Number,
-      createTime: { type: "date", time: true }
   },
   opts:{
-      collection: 'cms_material'
+      collection: 'cms_material',
+      timestamp: true
   }
 };

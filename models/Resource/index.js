@@ -4,9 +4,9 @@ module.exports = {
       id: {type:'serial', unique:true, key: true},
       resourceName: String,
       interface: String,
-      createTime: { type: "date", time: true }
   },
   opts:{
-      collection: 'cms_resource'
+      collection: 'cms_resource',
+      timestamp: true
   }
 };

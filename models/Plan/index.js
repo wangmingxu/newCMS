@@ -6,9 +6,9 @@ module.exports = {
       planName: String,
       startTime: { type: "date", time: true },
       endTime: { type: "date", time: true },
-      createTime: { type: "date", time: true }
   },
   opts:{
-      collection: 'cms_plan'
+      collection: 'cms_plan',
+      timestamp: true
   }
 };

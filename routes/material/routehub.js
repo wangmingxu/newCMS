@@ -3,7 +3,7 @@ module.exports = (router) => {
     router.get('/list', require('./handlers/list'));
 
     // 上传图片
-    // router.post('/upload', require('./handlers/upload'));
+    router.post('/upload', require('./handlers/upload'));
 
     // 删除图片
     // router.post('/delete', require('./handlers/delete'));

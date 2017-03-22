@@ -3,11 +3,13 @@ const RouterBase = require('../../../common/routerbase');
 
 class showResources extends RouterBase {
     handle() {
-      this.req.models.Resource.get(1,(err, resource) => {
+      new Promise((resolve,reject)=>{
+        this.req.models.Resource.get(1,(err, resource)=>{
+          resolve(resource);
+        })
+      })
+      .then((resource)=>{
         this.res.json(resource);
-        // resource.getPlans((err,results) => {
-        //   this.res.json(results);
-        // });
       });
     }
 }
