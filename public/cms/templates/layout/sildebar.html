@@ -1,0 +1,46 @@
+<div class="navbar-default sidebar" role="navigation" id="sidebar">
+    <div class="sidebar-nav navbar-collapse" id="navbar-collapse">
+        <div class="sidebar_links">
+
+            <ul class="nav" id="side-menu">
+                <li class='visible-xs' ng-class="{active: mainUrl == 'profile'}">
+                    <a ui-sref="profile">
+                        <i class="material-icons">account_box</i>
+                        Me
+                    </a>
+                </li>
+                <li ng-class="{active: mainUrl == 'dashboard'}">
+                    <a ui-sref="dashboard">
+                        <i class="material-icons">equalizer</i>
+                        Dashboard
+                    </a>
+                </li>
+                <li ng-class="{active: mainUrl == 'users'}">
+                    <a ui-sref="users">
+                        <i class="material-icons pull-left">supervisor_account</i>
+                        Users
+                    </a>
+                </li>
+                <li ng-class="{active: mainUrl == 'posts'}">
+                    <a ui-sref="posts">
+                        <i class="material-icons">subtitles</i>
+                        Posts
+                    </a>
+                </li>
+                <li ng-class="{active: mainUrl == 'gallery'}">
+                    <a ui-sref="gallery">
+                        <i class="material-icons">monochrome_photos</i>
+                        Gallery
+                    </a>
+                </li>
+                <li class='visible-xs'>
+                    <a href="/admin/logout" target="_self">
+                        <i class="material-icons">exit_to_app</i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+body, html {
+  background-color: $light-gray;
+  font-family: 'Noto Sans', sans-serif !important;
+  color: darken($gray, 30%);
+  font-size: 100%;
+
+  h1 {
+    @include font-size(50px);
+  }
+  h2 {
+    @include font-size(40px)
+  }
+  h3 {
+    @include font-size(30px);
+  }
+}
+
+[data-page="login"], [data-page="login"] body {
+  background-color: $light-blue;
+  height: 100% !important;
+}
+
+a {
+  outline: none !important;
+}
+
+#wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 50px;
+
+  #page-wrapper {
+    padding: 0 15px;
+    min-height: 40em;
+    overflow: hidden;
+
+    #github {
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      margin-top: 12em;
+
+      img {
+        width: 30px;
+      }
+      i {
+        font-size: 2em;
+      }
+      a {
+        color: $gray;
+        &:hover {
+          color: $light-blue;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  @media(min-width: $screen-sm-min) {
+    #page-wrapper {
+      position: inherit;
+      margin: 0 0 0 200px;
+      padding: 0 30px;
+    }
+  }
+}

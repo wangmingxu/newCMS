@@ -1,0 +1,30 @@
+/* Main pages header */
+.page-header {
+  color: darken($gray, 30%);
+}
+/* Panel heading */
+.panel-heading {
+  background-color: $gray;
+  border-radius: 0;
+  height: 3em;
+  text-align: center;
+  color: $gray;
+
+  a {
+    line-height: 0.1em;
+    color: $light-blue;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Preloader */
+.preloader {
+  background-color: $white;
+  padding: 0.2em 0.4em;
+  border-radius: 50%;
+  float: left;
+  @include shaddow-box(1);
+}

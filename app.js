@@ -6,8 +6,6 @@ const config = require('./config');
 const app_port = process.env.VCAP_APP_PORT || config.port;
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const ueditor = require('ueditor');
-const path = require('path');
 
 // 设置静态资源目录
 app.use("/public",express.static(global.STATIC_ROOT));

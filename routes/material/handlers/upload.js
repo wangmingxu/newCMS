@@ -21,7 +21,9 @@ class ImageUploader extends RouterBase {
         const result = { 'code': -1, 'msg': '', 'data': {} };
 
         this.parseForm()
-            .then(({ files }) => {
+            .then(({ fields,files }) => {
+              console.log(fields);
+              console.log(files);
                 if (!('image' in files)) {
                     result.msg = '参数错误';//上传的文件字段名为‘image’
                     return;
