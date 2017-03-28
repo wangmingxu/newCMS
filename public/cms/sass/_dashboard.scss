@@ -31,19 +31,19 @@
 .error-page-header {
   color: $red !important;
 }
-.users-count {
+.materials-count {
   background-color: darken($yellow, 10%);
   .count-dark {
     background-color: darken($yellow, 15%);
   }
 }
-.posts-count {
+.resources-count {
   background-color: $purple;
   .count-dark {
     background-color: darken($purple, 15%);
   }
 }
-.galleries-count {
+.plans-count {
   background-color: $green-gray;
   .count-dark {
     background-color: darken($green-gray, 15%);

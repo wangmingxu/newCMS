@@ -21,10 +21,11 @@
                         views: {
                             'main': {
                                 templateUrl: 'templates/dashboard/dashboard.html',
-                                // controller:'dashboardCtrl'
+                                controller: 'DashboardController',
+                                controllerAs: 'vm',
                             }
                         },
-                        title:'Dashboard'
+                        title:'主面板'
                     },
             }
         ];

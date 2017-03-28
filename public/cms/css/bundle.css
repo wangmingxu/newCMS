@@ -190,19 +190,19 @@ a {
 .error-page-header {
   color: #f44336 !important; }
 
-.users-count {
+.materials-count {
   background-color: #dfca0f; }
-  .users-count .count-dark {
+  .materials-count .count-dark {
     background-color: #c7b50d; }
 
-.posts-count {
+.resources-count {
   background-color: #9c27b0; }
-  .posts-count .count-dark {
+  .resources-count .count-dark {
     background-color: #641971; }
 
-.galleries-count {
+.plans-count {
   background-color: #00bcd4; }
-  .galleries-count .count-dark {
+  .plans-count .count-dark {
     background-color: #007888; }
 
 /* Count and search */
@@ -250,7 +250,8 @@ a {
   margin-top: 3px; }
   .filter select {
     margin-left: 10px;
-    background-color: inherit; }
+    background-color: inherit;
+    padding-right: 15px; }
 
 .table-responsive {
   font-size: 14px;
@@ -416,11 +417,15 @@ button {
     overflow: hidden;
     float: left;
     margin: 0.5em;
-    height: 12em;
+    height: 14em;
     border: 5px solid #edecec;
     border-radius: 0.2em;
     box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
     margin-bottom: 0.2em; }
+    .image-container .img-btn-container .form-group {
+      margin-bottom: 0px; }
+      .image-container .img-btn-container .form-group ::-webkit-input-placeholder {
+        text-align: center; }
     .image-container .img-btn-container .btn-dlt-img {
       background-color: #f44336;
       color: #ffffff;

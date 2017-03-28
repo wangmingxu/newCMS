@@ -98,11 +98,18 @@ button {
     overflow: hidden;
     float: left;
     margin: 0.5em;
-    height: 12em;
+    height: 14em;
     border: 5px solid $light-gray;
     border-radius: 0.2em;
     @include shaddow-box(1);
     margin-bottom: 0.2em;
+
+    .form-group{
+      margin-bottom: 0px;
+      ::-webkit-input-placeholder {
+        text-align:center;
+      }
+    }
 
     .btn-dlt-img {
       background-color: $red;

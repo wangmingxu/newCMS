@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
 // 设置静态资源目录
-app.use("/public",express.static(global.STATIC_ROOT));
+app.use("/",express.static(global.STATIC_ROOT));
 
 app.use("/upload",express.static(global.UPLOAD_ROOT));
 
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 // CORS配置
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
     next();
 });

@@ -10,6 +10,9 @@
             'app.components',
             'app.services',
             'app.dashboard',
+            'app.material',
+            'app.resource',
+            'app.plan',
         ]);
 
 }());

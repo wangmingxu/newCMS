@@ -1,4 +1,6 @@
 const ueditor = require('./handler');
+const fs = require('fs');
+const path = require('path');
 
 module.exports = (router) => {
   router.use("/dispatcher", ueditor(global.UPLOAD_ROOT, function (req, res, next) {
@@ -24,8 +26,8 @@ module.exports = (router) => {
       }
       // 客户端发起其它请求
       else {
-          res.setHeader('Content-Type', 'application/json');
-          res.redirect('/public/ueditor/nodejs/config.json');
+          var configJson = JSON.parse(fs.readFileSync(path.join(global.SERVER_ROOT,'public/cms/ueditor/nodejs/config.json')));
+          res.jsonp(configJson);
       }
   }));
 };

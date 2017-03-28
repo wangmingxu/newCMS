@@ -3,10 +3,10 @@
  */
 "use strict";
 class RouterBase {
+    /**
+     * 把req,res,next绑定到this
+     */
     constructor(req, res, next) {
-      /**
-       * 把req,res,next绑定到this
-       */
         Object.assign(this, { req, res, next });
     }
 

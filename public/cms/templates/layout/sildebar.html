@@ -9,28 +9,28 @@
                         Me
                     </a>
                 </li>
-                <li ng-class="{active: mainUrl == 'dashboard'}">
-                    <a ui-sref="dashboard">
+                <li ng-class="{active: mainUrl.indexOf('dashboard')>-1}">
+                    <a ui-sref="root.dashboard">
                         <i class="material-icons">equalizer</i>
-                        Dashboard
+                        主面板
                     </a>
                 </li>
-                <li ng-class="{active: mainUrl == 'users'}">
-                    <a ui-sref="users">
+                <li ng-class="{active: mainUrl.indexOf('material')>-1}">
+                    <a ui-sref="root.material">
                         <i class="material-icons pull-left">supervisor_account</i>
-                        Users
+                        素材管理
                     </a>
                 </li>
-                <li ng-class="{active: mainUrl == 'posts'}">
-                    <a ui-sref="posts">
+                <li ng-class="{active: mainUrl.indexOf('resource')>-1}">
+                    <a ui-sref="root.resource">
                         <i class="material-icons">subtitles</i>
-                        Posts
+                        资源位管理
                     </a>
                 </li>
-                <li ng-class="{active: mainUrl == 'gallery'}">
-                    <a ui-sref="gallery">
+                <li ng-class="{active: mainUrl.indexOf('plan')>-1}">
+                    <a ui-sref="root.plan">
                         <i class="material-icons">monochrome_photos</i>
-                        Gallery
+                        计划管理
                     </a>
                 </li>
                 <li class='visible-xs'>

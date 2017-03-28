@@ -52,7 +52,7 @@ gulp.task('js',function(){
     .pipe(ngAnnotate({single_quotes: true}))
     .pipe(concat("bundle.js"))
     .pipe(jshint())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('dist/js/'));
 });

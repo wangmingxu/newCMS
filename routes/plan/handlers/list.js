@@ -6,7 +6,7 @@ class showPlans extends RouterBase {
       this.req.models.Plan.settings.set("pagination.perpage", 10);
       this.req.models.Plan.pages( (err, pages) => {
           console.log("Total pages: %d", pages);
-          this.req.models.Plan.page(2).run( (err, plans) => {
+          this.req.models.Plan.page(1).run( (err, plans) => {
               this.res.json(plans);
           });
       });
