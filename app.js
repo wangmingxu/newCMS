@@ -19,7 +19,7 @@ app.use(morgan('tiny'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse `application/json`
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit:'5mb'}));
 
 // CORS配置
 app.all('*', function(req, res, next) {

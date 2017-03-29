@@ -1,15 +1,14 @@
 "use strict";
-const path = require('path');
-const multiparty = require('multiparty');
+const fs = require('fs');
+const shortid = require('shortid');
 const RouterBase = require('../../../common/routerbase');
 const UploadQiniu = require('../../../common/uploadQiniu');
+const fileType = require('file-type');
 
-class ImageUploader extends RouterBase {
+class Base64Uploader extends RouterBase {
     constructor() {
         super(...arguments);
 
-        // 图片允许上传的最大文件大小，单位(M)
-        this.MAX_FILE_SIZE = 5;
         this.result = {
             'code': -1,
             'msg': '',
@@ -18,47 +17,53 @@ class ImageUploader extends RouterBase {
     }
 
     handle() {
-        this.parseForm().then(({fields, files}) => {
-            // console.log(fields);
-            // console.log(files);
-            if (!('image' in files)) {
-                this.result.msg = '参数错误'; //上传的文件字段名为‘image’
-                return;
-            }
-
-            const imageFile = files.image[0];
-            return new UploadQiniu(imageFile.path).handle();
-        }).catch(e => {
-            console.log(e);
-            if (e.statusCode === 413) {
-                this.result.msg = `单个不超过${this.MAX_FILE_SIZE}MB`;
-            } else {
-                this.result.msg = '图片上传失败，请稍候再试';
-            }
-        }).then((imageUrl) => {
+        this.parseForm().then((srcpathArr) => {
+            let destArr = srcpathArr.map((srcpath) => {
+                return new UploadQiniu(srcpath).handle();
+            });
+            return Promise.all(destArr);
+        }).then((destArr) => {
+            let cbArr = this.req.body.map((item, i) => {
+                let newMaterial = {
+                    materialName: item.materialName,
+                    materialType: 'image',
+                    content: destArr[i]
+                };
+                return new Promise((resolve, reject) => {
+                    this.req.models.Material.create(newMaterial, (err, results) => {
+                        if (err)
+                            throw err;
+                        resolve(results);
+                    });
+                })
+            });
+            return Promise.all(cbArr);
+        }).then((resArr) => {
             this.result.code = 1;
             this.result.msg = '上传成功';
-            this.result.data.imageUrl = imageUrl;
+            this.result.data = resArr;
             this.res.json(this.result);
-        });
+        })
     }
 
     parseForm() {
-        const form = new multiparty.Form({
-            encoding: 'utf8',
-            maxFilesSize: this.MAX_FILE_SIZE * 1024 * 1024,
-            autoFiles: true,
-            uploadDir: path.join(global.SERVER_ROOT, 'upload')
+        let tempArr = this.req.body.map((item) => {
+            return new Promise((resolve, reject) => {
+                let base64 = item.content.replace(/^data:image\/\w+;base64,/, "");
+                let dataBuffer = new Buffer(base64, 'base64');
+                let _fileType = fileType(dataBuffer);
+                let dest = `${global.UPLOAD_ROOT}/${shortid.generate()}.${_fileType.ext}`;
+                fs.writeFile(dest, dataBuffer, function(err) { //用fs写入文件
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(dest);
+                    }
+                })
+            })
         });
-
-        return new Promise((resolve, reject) => {
-            form.parse(this.req, (err, fields = {}, files = {}) => {
-                return err
-                    ? reject(err)
-                    : resolve({fields, files});
-            });
-        });
+        return Promise.all(tempArr);
     }
 }
 
-module.exports = ImageUploader.makeRouteHandler();
+module.exports = Base64Uploader.makeRouteHandler();

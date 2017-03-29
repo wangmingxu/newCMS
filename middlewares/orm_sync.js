@@ -8,9 +8,9 @@ const modts = require('orm-timestamps');
 const _ = require('lodash');
 const db_config = require('../database-test.js');
 const Model = require('../models');
-const Association = require('../models/association');
+const ModelLink = require('../models/ModelLink');
 
-module.exports = orm.express(db_config.postgresql, {
+module.exports = orm.express(db_config.mysql, {
     define: function(db, models, next) {
         //自动生成时间戳
       	db.use(modts, {
@@ -29,7 +29,7 @@ module.exports = orm.express(db_config.postgresql, {
             models[model.name] = db.define(model.name, model.props, model.opts);
         });
         //定义模型间关联
-        new Association(models);
+        new ModelLink(models);
         //同步数据库
         db.sync(function(err) {
             if (err)

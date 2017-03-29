@@ -6,5 +6,5 @@ module.exports = (router) => {
     router.post('/upload', require('./handlers/upload'));
 
     // 删除图片
-    // router.post('/delete', require('./handlers/delete'));
+    router.post('/delete', require('./handlers/delete'));
 };
