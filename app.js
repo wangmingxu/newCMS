@@ -30,7 +30,7 @@ app.all('*', function(req, res, next) {
 });
 
 // orm同步数据库中间件
-// app.use(require('./middlewares/orm_sync'));
+app.use(require('./middlewares/orm_sync'));
 
 // 业务逻辑分发路由中间件
 app.use(require('./middlewares/route_dispatcher'));
