@@ -1,7 +1,9 @@
+<!-- flash message -->
+<flash-message></flash-message>
 <!-- main heading -->
 <div class="row">
     <div class="col-lg-12">
-        <h3 class="page-header">素材列表</h3>
+        <h3 class="page-header">在线计划列表</h3>
         <page-loading ng-show="!vm.ready"></page-loading>
     </div>
 </div>
@@ -9,29 +11,13 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
 
-            <!-- panel heading -->
-            <div class="panel-heading">
-                <a ui-sref="root.material.create">
-                    新增素材
-                </a>
-            </div>
-
             <div class="panel-body">
 
                 <div class="count-search">
 
                     <!-- count -->
                     <div class="count">
-                        Total <span ng-bind="vm.list.length"></span> Materials
-                    </div>
-
-                    <!-- filter by material type -->
-                    <div class="filter pull-left">
-                        <span>Filter By:</span>
-                        <select ng-model="vm.typeFilter" ng-change="vm.getData()">
-                            <option value="image">图片素材</option>
-                            <option value="text">文本素材</option>
-                        </select>
+                        Total <span ng-bind="vm.list.length"></span> Plans
                     </div>
 
                     <!-- search -->
@@ -43,13 +29,15 @@
                 </div>
 
                 <!-- data table -->
-                <div class="table-responsive">
+                <div class="table-responsive text-center">
                     <table class="table table-striped text-center" id="dataTables-example">
                         <thead>
                         <tr>
-                            <th class="text-center">素材名称</th>
-                            <th class="text-center">素材类型</th>
-                            <th class="text-center">创建时间</th>
+                            <th class="text-center">计划名称</th>
+                            <th class="text-center">所属资源位</th>
+                            <th class="text-center">计划开始时间</th>
+                            <th class="text-center">计划结束时间</th>
+                            <th class="text-center">计划创建时间</th>
                             <th class="table-actions text-center">操作</th>
                         </tr>
 
@@ -57,18 +45,15 @@
                         <tbody id="search_result">
 
                         <tr class="odd gradeX" ng-repeat="m in vm.list">
-                                <td ng-bind="m.materialName"></td>
-                                <td>{{m.materialType=='image'?'图片素材':'文本素材'}}</td>
+                                <td ng-bind="m.planName"></td>
+                                <td>{{m.resource.resourceName}}</td>
+                                <td ng-bind="m.startTime"></td>
+                                <td ng-bind="m.endTime"></td>
                                 <td ng-bind="m.created_at"></td>
                                 <td class="table-actions">
-                                    <a ng-href="{{m.content}}" target="_blank" ng-if="m.materialType=='image'">
+                                    <a ui-sref="root.plan.edit({id: m.id })">
                                         <div class="action action-edit pull-left">
-                                            <i class="material-icons action-icon">visibility</i>
-                                        </div>
-                                    </a>
-                                    <a ng-href="data:text/html;charset=utf-8,{{m.content}}" target="_blank" ng-if="m.materialType=='text'">
-                                        <div class="action action-edit pull-left">
-                                            <i class="material-icons action-icon">visibility</i>
+                                            <i class="material-icons action-icon">create</i>
                                         </div>
                                     </a>
                                     <a ng-click="vm.showDeleteModal(u)">

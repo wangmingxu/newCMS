@@ -20,7 +20,12 @@ class countAll extends RouterBase {
         });
         Promise.all([MaterialCount, ResourceCount, PlanCount]).then(values => {
             console.log(values);
-            this.res.json(values);
+            let result = {
+              materials_count : values[0],
+              resources_count : values[1],
+              plans_count : values[2]
+            };
+            this.res.json(result);
         });
     }
 }

@@ -11,7 +11,7 @@
     function DashboardController($http) {
 
         var vm = this;
-        vm.ready = true;
+        vm.ready = false;
         vm.getData = getData;
 
         getData();
@@ -20,12 +20,12 @@
          * Get Data
          */
         function getData() {
-            // $http.get('/admin/api/dashboard').success(function(res) {
-            //     vm.users_count      = res.users_count;
-            //     vm.posts_count      = res.posts_count;
-            //     vm.galleries_count  = res.galleries_count;
-            //     vm.ready = true;
-            // });
+            $http.get('/node/dashboard/count').success(function(data) {
+                vm.materials_count      = data.materials_count;
+                vm.resources_count      = data.resources_count;
+                vm.plans_count  = data.plans_count;
+                vm.ready = true;
+            });
         }
     }
 

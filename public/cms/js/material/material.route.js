@@ -17,7 +17,7 @@
             {
                 state: 'root.material',
                 config: {
-                        url: '/material',
+                        url: '^/material',
                         views: {
                             'main@root': {
                                 templateUrl: 'templates/material/materialList.html',
@@ -31,7 +31,7 @@
             {
                 state: 'root.material.create',
                 config: {
-                        url: '/material/create',
+                        url: '^/material/create',
                         views: {
                             'main@root': {
                                 templateUrl: 'templates/material/createMaterial.html',
@@ -39,7 +39,7 @@
                                 controllerAs: 'vm',
                             }
                         },
-                        title:'新建素材'
+                        title:'编辑素材'
                     },
             }
         ];

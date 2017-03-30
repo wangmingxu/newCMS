@@ -1,0 +1,14 @@
+<button class="btn btn-default" type="submit" data-target="text_choose">插入文本素材</button>
+<div id="text_choose" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>选择文本素材</h4>
+    <div class="list-group">
+      <a class="list-group-item" ng-repeat="item in list" ng-class="item.id==choose.id?'active':''" ng-click="selectText(item)">
+        {{item.materialName}}
+      </a>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action modal-close waves-effect waves-green btn-flat " ng-click="insertText()">插入</a>
+  </div>
+</div>

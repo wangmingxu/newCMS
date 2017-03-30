@@ -4,16 +4,16 @@
 
     angular
         .module("app.services")
-        .factory("Post", Post);
+        .factory("Material", Material);
 
-    Post.$inject = ['$resource'];
+    Material.$inject = ['$http'];
     /* @ngInject */
-    function Post($resource) {
-        return $resource('/admin/api/posts/:id', {id: '@_id'}, {
-            update: {
-                method: 'PUT'
-            }
-        });
+    function Material($http) {
+        // return $resource('/admin/api/posts/:id', {id: '@_id'}, {
+        //     update: {
+        //         method: 'PUT'
+        //     }
+        // });
     }
 
 }());

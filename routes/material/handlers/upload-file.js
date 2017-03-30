@@ -10,11 +10,6 @@ class ImageUploader extends RouterBase {
 
         // 图片允许上传的最大文件大小，单位(M)
         this.MAX_FILE_SIZE = 5;
-        this.result = {
-            'code': -1,
-            'msg': '',
-            'data': {}
-        };
     }
 
     handle() {

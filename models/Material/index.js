@@ -5,7 +5,7 @@ module.exports = {
       materialName: String,
       materialType: ['image','text'],
       content: String,
-      materialSize: Number,
+      // materialSize: Number,
   },
   opts:{
       collection: 'cms_material',

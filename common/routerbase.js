@@ -7,7 +7,12 @@ class RouterBase {
      * 把req,res,next绑定到this
      */
     constructor(req, res, next) {
-        Object.assign(this, { req, res, next });
+        let result = {
+            'code': -1,
+            'msg': '',
+            'data': {}
+        }
+        Object.assign(this, {req, res, next, result});
     }
 
     /**

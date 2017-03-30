@@ -25,11 +25,11 @@ gulp.task('depcss',['sass'],function(){
 
 //js依赖合并压缩
 gulp.task('depjs',function(){
-    return gulp.src('lib/js/*.js')
+    return gulp.src(['lib/js/*.js'])
     .pipe(ngAnnotate({single_quotes: true}))
     .pipe(concat("dep.js"))
     .pipe(jshint())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('dist/js/'));
 });

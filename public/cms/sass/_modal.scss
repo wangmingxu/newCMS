@@ -1,0 +1,30 @@
+.image_list {
+    margin-top: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-line-pack: justify;
+    align-content: space-between;
+    .image_item {
+        width: 150px;
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px solid rgba(11,11,11,0);
+        img {
+            width: 138px;
+            height: 90px;
+        }
+        .img_name {
+            margin-bottom: 0;
+            padding-top: 5px;
+            text-align: center;
+        }
+    }
+    .image_item_active {
+        border: 1px solid rgb(111,143,255);
+    }
+}

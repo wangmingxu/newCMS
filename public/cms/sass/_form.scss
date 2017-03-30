@@ -27,6 +27,7 @@ button {
   padding: 0.5em 2em;
   @include shaddow-box(1);
   margin-top: 3em;
+  line-height: 1.625;
   &:hover {
     @include shaddow-box(2);
     color: $white !important;
@@ -40,6 +41,7 @@ button {
     color: $white;
     background-color: $light-blue;
     outline: none;
+    height: auto;
     margin-top: 1em;
     @include shaddow-box(1);
 
@@ -108,6 +110,10 @@ button {
       margin-bottom: 0px;
       ::-webkit-input-placeholder {
         text-align:center;
+      }
+      .imageName{
+        text-align: center;
+        width: 100%;
       }
     }
 

@@ -1,0 +1,17 @@
+<button class="btn btn-default" type="submit" data-target="img_choose">插入图片素材</button>
+<div id="img_choose" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>选择图片</h4>
+    <div class="well well-lg image_list">
+        <div class="image_item" ng-repeat="item in list" ng-class="item.id==choose.id?'image_item_active':''" ng-click="selectImage(item)">
+            <img ng-src="{{item.content}}" alt=""/>
+            <p class="img_name">
+                {{item.materialName}}
+            </p>
+        </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action modal-close waves-effect waves-green btn-flat " ng-click="insertImage()">插入</a>
+  </div>
+</div>

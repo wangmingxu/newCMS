@@ -10,9 +10,6 @@ class showPlans extends RouterBase {
               this.res.json(plans);
           });
       });
-      // this.req.models.Plan.get(1,(err,results) => {
-      //   this.res.json(results);
-      // });
     }
 }
 

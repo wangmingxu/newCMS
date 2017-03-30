@@ -8,12 +8,6 @@ const fileType = require('file-type');
 class Base64Uploader extends RouterBase {
     constructor() {
         super(...arguments);
-
-        this.result = {
-            'code': -1,
-            'msg': '',
-            'data': {}
-        };
     }
 
     handle() {
@@ -25,7 +19,7 @@ class Base64Uploader extends RouterBase {
         }).then((destArr) => {
             let cbArr = this.req.body.map((item, i) => {
                 let newMaterial = {
-                    materialName: item.materialName,
+                    materialName: item.name,
                     materialType: 'image',
                     content: destArr[i]
                 };
@@ -49,11 +43,11 @@ class Base64Uploader extends RouterBase {
     parseForm() {
         let tempArr = this.req.body.map((item) => {
             return new Promise((resolve, reject) => {
-                let base64 = item.content.replace(/^data:image\/\w+;base64,/, "");
+                let base64 = item.url.replace(/^data:image\/\w+;base64,/, "");
                 let dataBuffer = new Buffer(base64, 'base64');
                 let _fileType = fileType(dataBuffer);
                 let dest = `${global.UPLOAD_ROOT}/${shortid.generate()}.${_fileType.ext}`;
-                fs.writeFile(dest, dataBuffer, function(err) { //用fs写入文件
+                fs.writeFile(dest, dataBuffer, function(err) {
                     if (err) {
                         reject(err);
                     } else {
