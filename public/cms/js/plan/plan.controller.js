@@ -4,9 +4,9 @@
 
     angular.module("app.plan").controller('PlanController', PlanController);
 
-    PlanController.$inject = ['$http', '$stateParams', '$filter', 'Plan', 'Resource'];
+    PlanController.$inject = ['$http', '$stateParams', '$filter', 'Plan', 'Resource', '$state'];
     /* @nginject */
-    function PlanController($http, $stateParams, $filter, Plan, Resource) {
+    function PlanController($http, $stateParams, $filter, Plan, Resource, $state) {
 
         var vm = this;
         vm.plan = {};
@@ -64,6 +64,9 @@
             var newPlan = new Plan(data);
             newPlan.$save(function(){
               Materialize.toast('创建计划成功!', 4000);
+              setTimeout(function(){
+                $state.go('root.plan');
+              },1000);
             });
         }
 

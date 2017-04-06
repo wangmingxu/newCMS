@@ -33,13 +33,13 @@
               <div class="form-group">
                 <label for="">计划开始时间</label>
                   <div class="input-group">
-                      <input type="date" placeholder="计划开始时间" class="form-control" ng-model="vm.plan.startTime"/>
+                      <input type="date" placeholder="计划开始时间" class="form-control" ng-model="vm.plan.startTime" ng-value="vm.now | date : 'yyyy-MM-dd'"/>
                   </div>
               </div>
               <div class="form-group">
                 <label for="">计划结束时间</label>
                   <div class="input-group">
-                      <input type="date" placeholder="计划结束时间" class="form-control" ng-model="vm.plan.endTime"/>
+                      <input type="date" placeholder="计划结束时间" class="form-control" ng-model="vm.plan.endTime" ng-value="vm.now | date : 'yyyy-MM-dd'"/>
                   </div>
               </div>
               <div class="form-group">

@@ -4,9 +4,9 @@
 
     angular.module("app.resource").controller('ResourceController', ResourceController);
 
-    ResourceController.$inject = ['$http', '$stateParams', 'Resource', 'Plan'];
+    ResourceController.$inject = ['$http', '$stateParams', 'Resource', 'Plan','$state'];
     /* @nginject */
-    function ResourceController($http, $stateParams, Resource, Plan) {
+    function ResourceController($http, $stateParams, Resource, Plan, $state) {
         var vm = this;
         vm.getList = getList;
         vm.now = Date.now();
@@ -50,6 +50,9 @@
             var newResource = new Resource(vm.resource);
             newResource.$save(function(){
               Materialize.toast('创建资源位成功!', 4000);
+              setTimeout(function(){
+                $state.go('root.resource');
+              },1000);
             });
         }
 
