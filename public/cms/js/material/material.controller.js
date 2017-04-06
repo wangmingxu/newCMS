@@ -4,9 +4,9 @@
 
     angular.module("app.material").controller('MaterialController', MaterialController);
 
-    MaterialController.$inject = ['$http','$stateParams','Material'];
+    MaterialController.$inject = ['$http','$stateParams','Material','$state'];
     /* @nginject */
-    function MaterialController($http,$stateParams,Material) {
+    function MaterialController($http,$stateParams,Material,$state) {
         var vm = this;
         vm.typeFilter = 'image';
         vm.getData = getData;
@@ -48,6 +48,9 @@
             var newText = new Material(params);
             newText.$save(function(){
               Materialize.toast('上传素材成功!', 4000);
+              setTimeout(function(){
+                $state.go('root.material');
+              },1000);
             });
         }
 
@@ -60,6 +63,9 @@
             newImage.$save(function(){
               vm.loading = false;
               Materialize.toast('上传素材成功!', 4000);
+              setTimeout(function(){
+                $state.go('root.material');
+              },1000);
             });
         }
 
