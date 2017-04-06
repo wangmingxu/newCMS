@@ -6,7 +6,7 @@ module.exports = {
         id: { type: 'serial', unique: true, key: true },
         materialName: String,
         materialType: ['image', 'text'],
-        content: { type: 'text' }
+        content: { type: 'text', big: true }
     },
     opts: {
         collection: 'cms_material',
