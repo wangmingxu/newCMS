@@ -15,5 +15,5 @@ module.exports = (router) => {
     router.post('/:id', require('./handlers/update'));
 
     // 汽配铺获取在线计划的内容
-    router.get('/:id/output', require('./handlers/output'));
+    router.get('/:id/show', require('./handlers/show'));
 };
