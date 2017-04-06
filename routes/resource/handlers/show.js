@@ -40,10 +40,10 @@ var FindOnlinePlan = function (_RouterBase) {
                 });
             }).then(function (onlinePlans) {
                 if (onlinePlans.length > 0) {
-                    _this2.res.json(JSON.parse(onlinePlans[0].interface));
+                    _this2.res.jsonp(JSON.parse(onlinePlans[0].interface));
                 } else {
                     _this2.result.msg = "查询在线计划失败";
-                    _this2.res.json(_this2.result);
+                    _this2.res.jsonp(_this2.result);
                 }
             });
         }
