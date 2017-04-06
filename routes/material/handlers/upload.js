@@ -54,6 +54,9 @@ class Uploader extends RouterBase {
                 let base64 = item.url.replace(/^data:image\/\w+;base64,/, "");
                 let dataBuffer = new Buffer(base64, 'base64');
                 let _fileType = fileType(dataBuffer);
+                if(!fs.existsSync(global.UPLOAD_ROOT)){
+                  fs.mkdir(global.UPLOAD_ROOT);
+                }
                 let dest = `${global.UPLOAD_ROOT}/${shortid.generate()}.${_fileType.ext}`;
                 fs.writeFile(dest, dataBuffer, function(err) {
                     if (err) {

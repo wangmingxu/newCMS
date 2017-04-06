@@ -68,6 +68,10 @@ var respond = function (static_url, callback) {
         res.ue_up = function (img_url) {
           var tmpdir = path.join(os.tmpdir(), path.basename(filename));
           var name = snowflake.nextId() + path.extname(tmpdir);
+          var uploadDir = path.join(static_url, img_url);
+          if(!fs.existsSync(uploadDir)){
+            fs.mkdir(uploadDir);
+          }
           var dest = path.join(static_url, img_url, name);
           var writeStream = fs.createWriteStream(tmpdir);
           file.pipe(writeStream);

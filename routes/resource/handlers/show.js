@@ -26,7 +26,7 @@ class FindOnlinePlan extends RouterBase {
                 this.res.json(JSON.parse(onlinePlans[0].interface));
             } else {
                 this.result.msg = "查询在线计划失败";
-                this.res.json(this.result);
+                this.res.jsonp(this.result);
             }
         })
     }
