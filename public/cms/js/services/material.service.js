@@ -6,14 +6,10 @@
         .module("app.services")
         .factory("Material", Material);
 
-    Material.$inject = ['$http'];
+    Material.$inject = ['$resource'];
     /* @ngInject */
-    function Material($http) {
-        // return $resource('/admin/api/posts/:id', {id: '@_id'}, {
-        //     update: {
-        //         method: 'PUT'
-        //     }
-        // });
+    function Material($resource) {
+        return $resource('/node/material/:id', {id: '@_id'},{query: {method: 'get', isArray: false}});
     }
 
 }());

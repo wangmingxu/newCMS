@@ -3,7 +3,7 @@ const RouterBase = require('../../../common/routerbase');
 
 class DeleteImage extends RouterBase {
     handle() {
-      let materialId = this.req.body.materialId;
+      let materialId = this.req.params.id;
       this.req.models.Material.get(materialId, (err, material) => {
           material.remove((err) => {
               this.result.code = 1;

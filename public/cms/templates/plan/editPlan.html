@@ -1,5 +1,4 @@
-<!-- flash message -->
-<flash-message></flash-message>
+
 
 <!-- main header -->
 <div class="row">
@@ -50,7 +49,7 @@
                   <image-choose choose="vm.selectedImg" ng-if="vm.options.mode=='form'"></image-choose>
                   <text-choose choose="vm.selectedText" ng-if="vm.options.mode=='form'"></text-choose>
                 </div>
-                <angular-jsoneditor ng-model="vm.plan.resource.interface" options="vm.options" style="width: 100%; height: 600px;"></angular-jsoneditor>
+                <angular-jsoneditor ng-model="vm.plan.interface" options="vm.options" style="width: 100%; height: 600px;"></angular-jsoneditor>
               </div>
               <div class="form_submit">
                   <button  ng-click="vm.updatePlan()" class="btn btn-submit">保存</button>

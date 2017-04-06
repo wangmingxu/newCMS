@@ -3,7 +3,7 @@ const RouterBase = require('../../../common/routerbase');
 
 class DeleteResource extends RouterBase {
     handle() {
-        let resourceId = this.req.body.resourceId;
+        let resourceId = this.req.params.id;
         this.req.models.Resource.get(resourceId, (err, resource) => {
             resource.getPlans().remove((err) => {
                 resource.remove((err) => {

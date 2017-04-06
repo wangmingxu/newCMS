@@ -4,14 +4,17 @@
 
     angular.module("app.resource").controller('ResourceController', ResourceController);
 
-    ResourceController.$inject = ['$http', '$stateParams', '$scope', '$timeout'];
+    ResourceController.$inject = ['$http', '$stateParams', 'Resource', 'Plan'];
     /* @nginject */
-    function ResourceController($http, $stateParams, $scope, $timeout) {
+    function ResourceController($http, $stateParams, Resource, Plan) {
         var vm = this;
         vm.getList = getList;
+        vm.now = Date.now();
         vm.createResource = createResource;
         vm.getResource = getResource;
         vm.delResource = delResource;
+        vm.updateResource = updateResource;
+        vm.toggleStatus = toggleStatus;
         vm.options = {
             mode: 'code',
             modes: ['form', 'text', 'tree', 'view','code'],
@@ -22,18 +25,18 @@
          */
         function getList() {
             vm.ready = false;
-            $http.get('/node/resource/list').success(function(data) {
-                vm.list = data;
+            var list = Resource.query(function(){
+                vm.list = list;
                 vm.ready = true;
             });
         }
 
         /**
-         * Get Resource By id
+         * Get Resource By Id
          */
         function getResource() {
             vm.ready = false;
-            $http.get('/node/resource/' + $stateParams.id).success(function(data) {
+            Resource.get({id:$stateParams.id},function(data){
                 vm.resource = data;
                 vm.resource.interface = JSON.parse(vm.resource.interface);
                 vm.ready = true;
@@ -44,10 +47,9 @@
          * Create Resource
          */
         function createResource() {
-            $http({method: 'POST', url: '/node/resource/create', data: vm.resource}).then(function successCallback(data, status, headers, config) {
-                Materialize.toast('创建资源位成功', 4000);
-            }, function errorCallback(data, status, headers, config) {
-                Materialize.toast('创建资源位失败', 4000);
+            var newResource = new Resource(vm.resource);
+            newResource.$save(function(){
+              Materialize.toast('创建资源位成功!', 4000);
             });
         }
 
@@ -55,41 +57,32 @@
          * Delete Resource
          */
         function delResource(id) {
-            $http({
-                method: 'POST',
-                url: '/node/resource/delete',
-                data: {
-                    resourceId: id
-                }
-            }).then(function successCallback(data, status, headers, config) {
-                Materialize.toast('删除资源位成功', 4000);
-                vm.getList();
-            }, function errorCallback(data, status, headers, config) {
-                Materialize.toast('删除资源位失败', 4000);
+            Resource.get({id:id},function(resource){
+                resource.$delete({id:id},function(){
+                  Materialize.toast('删除资源位成功', 4000);
+                  vm.getList();
+                });
             });
         }
 
-        /**
-         * Success response
-         */
-        function _successResponse(successMessage) {
-            vm.errors = '';
-            vm.flash = successMessage;
-            vm.loading = false;
-            $timeout(function() {
-                vm.flash = false;
-            }, 5000);
+        function updateResource(){
+            Resource.get({id:$stateParams.id},function(resource){
+                angular.extend(resource,vm.resource);
+                resource.$save({id:$stateParams.id},function(){
+                  Materialize.toast('修改资源位成功', 4000);
+                  vm.getResource();
+                });
+            });
         }
 
-        /**
-         * Errors response
-         */
-        function _errorResponse(flashError) {
-            vm.loading = false;
-            vm.flashError = flashError;
-            $timeout(function() {
-                vm.flashError = false;
-            }, 5000);
+        function toggleStatus(planId,effective) {
+            Plan.get({id:planId},function(plan){
+                plan.effective = effective;
+                plan.$save({id:planId},function(){
+                  Materialize.toast('修改计划状态成功', 4000);
+                  vm.getResource();
+                });
+            });
         }
     }
 

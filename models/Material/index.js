@@ -4,7 +4,7 @@ module.exports = {
       id: {type:'serial', unique:true, key: true},
       materialName: String,
       materialType: ['image','text'],
-      content: String,
+      content: {type:'text'},
       // materialSize: Number,
   },
   opts:{

@@ -22,12 +22,29 @@
 
         function link(scope, element, attributes) {
           $(element).find('.modal').modal();
+          // $(element).hide();
           $(document).on('blur', '.jsoneditor-value', function(e) {
               window.editEle = e.currentTarget;
           });
-          $http.get('/node/material/list?materialType=text').success(function(data) {
-              scope.list = data;
-          });
+          // $(document).on('focus', '.jsoneditor-value', function(e) {
+          //     $(element).show();
+          // });
+          scope.getList = function(page) {
+              var params = {};
+              params.materialType = 'text';
+              if (page !== undefined) {
+                  params.page = page;
+              }
+              $http({method: 'GET', url: '/node/material', params: params}).then(function successCallback(data, status, headers, config) {
+                  scope.list = data.data.data;
+                  scope.totalPage = data.data.totalPage;
+                  scope.perpage = data.data.perpage;
+                  scope.page = data.data.page;
+              }, function errorCallback(data, status, headers, config) {
+                  console.log("error");
+              });
+          };
+          scope.getList();
           scope.selectText = function(item){
             scope.choose = item;
           };

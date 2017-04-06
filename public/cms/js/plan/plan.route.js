@@ -20,7 +20,7 @@
                         url: '^/plan',
                         views: {
                             'main@root': {
-                                templateUrl: 'templates/plan/onlinePlanList.html',
+                                templateUrl: 'templates/plan/planList.html',
                                 controller: 'PlanController',
                                 controllerAs: 'vm',
                             }

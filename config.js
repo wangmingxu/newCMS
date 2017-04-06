@@ -1,5 +1,5 @@
 module.exports = {
-    port: '18080',
+    port: '3000',
     ROUTE_BASE_PATH: '/node',
     qiniu: {
         bucket: 'mxqiniu',

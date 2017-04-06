@@ -1,5 +1,4 @@
-<!-- flash message -->
-<flash-message></flash-message>
+
 
 <!-- main header -->
 <div class="row">
@@ -22,15 +21,21 @@
               <div class="form-group">
                 <label for="">资源位名称</label>
                   <div class="input-group">
-                      <input type="text" placeholder="资源位名称" class="form-control" ng-model="vm.data.resourceName"/>
+                      <input type="text" placeholder="资源位名称" class="form-control" ng-model="vm.resource.resourceName"/>
                   </div>
               </div>
               <div class="form-group">
                 <label for="">接口格式</label>
-                <angular-jsoneditor ng-model="vm.data.interface" options="vm.options" style="width: 100%; height: 600px;"></angular-jsoneditor>
+                <angular-jsoneditor ng-model="vm.resource.interface" options="vm.options" style="width: 100%; height: 600px;"></angular-jsoneditor>
+              </div>
+              <div class="form-group">
+                <label for="">资源位备注</label>
+                  <div class="input-group">
+                      <input type="text" placeholder="资源位备注" class="form-control" ng-model="vm.resource.remark">
+                  </div>
               </div>
               <div class="form_submit">
-                  <button  ng-click="vm.test()" class="btn btn-submit">修改内容</button>
+                  <button  ng-click="vm.updateResource()" class="btn btn-submit">修改内容</button>
               </div>
             </div> <!-- / panel body -->
         </div>

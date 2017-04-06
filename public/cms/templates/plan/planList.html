@@ -1,7 +1,7 @@
 <!-- main heading -->
 <div class="row">
     <div class="col-lg-12">
-        <h3 class="page-header">素材列表</h3>
+        <h3 class="page-header">计划列表</h3>
         <page-loading ng-show="!vm.ready"></page-loading>
     </div>
 </div>
@@ -9,74 +9,79 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
 
-            <!-- panel heading -->
-            <div class="panel-heading">
-                <a ui-sref="root.material.create">
-                    新增素材
-                </a>
-            </div>
-
             <div class="panel-body">
 
                 <div class="count-search">
 
                     <!-- count -->
                     <div class="count">
-                        Total <span ng-bind="vm.totalNum"></span> Materials
+                        Total
+                        <span ng-bind="vm.totalNum"></span>
+                        Plans
                     </div>
 
                     <!-- filter by material type -->
                     <div class="filter pull-left">
                         <span>Filter By:</span>
-                        <select ng-model="vm.typeFilter" ng-change="vm.getData()">
-                            <option value="image">图片素材</option>
-                            <option value="text">文本素材</option>
+                        <select ng-model="vm.plan.effective" ng-change="vm.getData()">
+                            <option value="">全部</option>
+                            <option value="1">已上线</option>
+                            <option value="0">未上线</option>
                         </select>
                     </div>
 
                     <!-- search -->
                     <div id="search">
                         <i class="material-icons i-search">search</i>
-                        <input type="text" placeholder="搜索" ng-model="vm.search" ng-keydown="vm.liveSearch()" />
+                        <input type="text" placeholder="搜索" ng-model="vm.search" ng-keydown="vm.liveSearch()"/>
                     </div>
 
                 </div>
 
                 <!-- data table -->
-                <div class="table-responsive">
+                <div class="table-responsive text-center">
                     <table class="table table-striped text-center" id="dataTables-example">
                         <thead>
-                        <tr>
-                            <th class="text-center">素材名称</th>
-                            <th class="text-center">素材类型</th>
-                            <th class="text-center">创建时间</th>
-                            <th class="table-actions text-center">操作</th>
-                        </tr>
+                            <tr>
+                                <th class="text-center">计划名称</th>
+                                <th class="text-center">所属资源位</th>
+                                <th class="text-center">状态</th>
+                                <th class="text-center">计划开始时间</th>
+                                <th class="text-center">计划结束时间</th>
+                                <th class="text-center">计划创建时间</th>
+                                <th class="table-actions text-center">操作</th>
+                            </tr>
 
                         </thead>
                         <tbody id="search_result">
 
-                        <tr class="odd gradeX" ng-repeat="m in vm.list">
-                                <td ng-bind="m.materialName"></td>
-                                <td>{{m.materialType=='image'?'图片素材':'文本素材'}}</td>
+                            <tr class="odd gradeX" ng-repeat="m in vm.list">
+                                <td ng-bind="m.planName"></td>
+                                <td>{{m.resource.resourceName}}</td>
+                                <td ng-if="!m.effective">未上线</td>
+                                <td ng-if="m.effective&&vm.now>(m.startTime | dateVal)&&vm.now<(m.endTime | dateVal)">进行中</td>
+                                <td ng-if="m.effective&&vm.now<(m.startTime | dateVal)">即将开始</td>
+                                <td ng-if="m.effective&&vm.now>(m.endTime | dateVal)">已结束</td>
+                                <td>{{m.startTime | date : 'yyyy-MM-dd'}}</td>
+                                <td>{{m.endTime | date : 'yyyy-MM-dd'}}</td>
                                 <td>{{m.created_at | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
                                 <td class="table-actions">
-                                    <a ng-href="{{m.content}}" target="_blank" ng-if="m.materialType=='image'">
+                                    <a ng-click="vm.toggleStatus(m.id,1)" ng-if="!m.effective" title="上线">
                                         <div class="action action-edit pull-left">
-                                            <i class="material-icons action-icon">visibility</i>
+                                            <i class="material-icons action-icon">vertical_align_top</i>
                                         </div>
                                     </a>
-                                    <a ng-href="data:text/html;charset=utf-8,{{m.content}}" target="_blank" ng-if="m.materialType=='text'">
+                                    <a ng-click="vm.toggleStatus(m.id,0)" ng-if="m.effective" title="下线">
                                         <div class="action action-edit pull-left">
-                                            <i class="material-icons action-icon">visibility</i>
+                                            <i class="material-icons action-icon">vertical_align_bottom</i>
                                         </div>
                                     </a>
-                                    <a ui-sref="root.material.edit({id:m.id})" ng-if="m.materialType=='text'">
-                                        <div class="action action-delete pull-left">
+                                    <a ui-sref="root.plan.edit({id: m.id })" title="编辑">
+                                        <div class="action action-edit pull-left">
                                             <i class="material-icons action-icon">create</i>
                                         </div>
                                     </a>
-                                    <a ng-click="vm.delMaterial(m.id)">
+                                    <a ng-click="vm.delPlan(m.id)" title="删除">
                                         <div class="action action-delete pull-left">
                                             <i class="material-icons action-icon">delete</i>
                                         </div>
@@ -86,7 +91,7 @@
                         </tbody>
                     </table>
 
-                </div> <!-- / data table -->
+                </div>
                 <!-- / data table -->
                 <ul class="pagination text-center" style="padding-left:0px" ng-if="vm.totalPage>1">
                   <li ng-class="vm.page==1?'disabled':'waves-effect'" ng-click="vm.getData(vm.page-1)"><a><i class="material-icons">chevron_left</i></a></li>

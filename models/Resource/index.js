@@ -3,7 +3,7 @@ module.exports = {
   props:{
       id: {type:'serial', unique:true, key: true},
       resourceName: String,
-      interface: String,
+      interface: {type:'text'},
       remark: String
   },
   opts:{

@@ -93,6 +93,7 @@
                         var title = config.docTitle + ' · ' + (toState.title || '');
                         $rootScope.mainUrl = $state.current.url.split('/')[1];
                         $rootScope.title = title; // data bind to <title>
+                        window.scrollTo(0,0)
                     }
                 );
             }

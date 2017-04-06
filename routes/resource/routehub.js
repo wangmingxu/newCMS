@@ -1,13 +1,19 @@
 module.exports = (router) => {
     // 获取资源位列表
-    router.get('/list', require('./handlers/list'));
+    router.get('/', require('./handlers/list'));
 
     // 新建资源位
-    router.post('/create', require('./handlers/create'));
+    router.post('/', require('./handlers/create'));
 
     // 查找资源位
     router.get('/:id', require('./handlers/detail'));
 
-    // 删除图片
-    router.post('/delete', require('./handlers/delete'));
+    // 删除资源位
+    router.delete('/:id', require('./handlers/delete'));
+
+    // 更新资源位
+    router.post('/:id', require('./handlers/update'));
+
+    // 汽配铺获取在线计划的内容
+    router.get('/:id/output', require('./handlers/output'));
 };

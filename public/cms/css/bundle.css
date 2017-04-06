@@ -520,3 +520,8 @@ button {
       text-align: center; }
   .image_list .image_item_active {
     border: 1px solid #6f8fff; }
+
+.modal-footer .pageInfo {
+  float: left;
+  line-height: 36px;
+  margin: 7px; }

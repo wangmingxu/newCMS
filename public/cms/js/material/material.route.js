@@ -41,6 +41,20 @@
                         },
                         title:'编辑素材'
                     },
+            },
+            {
+                state: 'root.material.edit',
+                config: {
+                        url: '^/material/:id',
+                        views: {
+                            'main@root': {
+                                templateUrl: 'templates/material/editMaterial.html',
+                                controller: 'MaterialController',
+                                controllerAs: 'vm',
+                            }
+                        },
+                        title:'编辑素材'
+                    },
             }
         ];
     }

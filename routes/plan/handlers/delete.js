@@ -3,7 +3,7 @@ const RouterBase = require('../../../common/routerbase');
 
 class DeletePlan extends RouterBase {
     handle() {
-        let planId = this.req.body.planId;
+        let planId = this.req.params.id;
         this.req.models.Plan.get(planId, (err, plan) => {
             plan.remove((err) => {
                 this.result.code = 1;
