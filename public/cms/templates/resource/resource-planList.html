@@ -1,0 +1,94 @@
+<!-- main heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header">资源位-计划管理</h3>
+        <page-loading ng-show="!vm.ready"></page-loading>
+    </div>
+</div>
+<div class="row" ng-show="vm.ready" ng-init="vm.getResource()">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <!-- panel heading -->
+            <div class="panel-heading">
+                <a ui-sref="root.plan.create({id: vm.resource.id })">
+                    新建计划
+                </a>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="count-search">
+
+                    <!-- count -->
+                    <div class="count">
+                        Total <span ng-bind="vm.resource.plans.length"></span> Plans
+                    </div>
+
+                    <!-- search -->
+                    <div id="search">
+                        <i class="material-icons i-search">search</i>
+                        <input type="text" placeholder="搜索" ng-model="vm.search" ng-keydown="vm.liveSearch()" />
+                    </div>
+
+                </div>
+
+                <!-- data table -->
+                <div class="table-responsive text-center">
+                    <table class="table table-striped text-center" id="dataTables-example">
+                        <thead>
+                        <tr>
+                            <th class="text-center">计划名称</th>
+                            <th class="text-center">所属资源位</th>
+                            <th class="text-center">状态</th>
+                            <th class="text-center">计划开始时间</th>
+                            <th class="text-center">计划结束时间</th>
+                            <th class="text-center">计划创建时间</th>
+                            <th class="table-actions text-center">操作</th>
+                        </tr>
+
+                        </thead>
+                        <tbody id="search_result">
+
+                        <tr class="odd gradeX" ng-repeat="p in vm.resource.plans | orderBy:'-created_at'">
+                                <td ng-bind="p.planName"></td>
+                                <td>{{vm.resource.resourceName}}</td>
+                                <td ng-if="!p.effective">未上线</td>
+                                <td ng-if="p.effective&&vm.now>(p.startTime | dateVal)&&vm.now<(p.endTime | dateVal)">进行中</td>
+                                <td ng-if="p.effective&&vm.now<(p.startTime | dateVal)">即将开始</td>
+                                <td ng-if="p.effective&&vm.now>(p.endTime | dateVal)">已结束</td>
+                                <td>{{p.startTime | date : 'yyyy-MM-dd'}}</td>
+                                <td>{{p.endTime | date : 'yyyy-MM-dd'}}</td>
+                                <td>{{p.created_at | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+                                <td class="table-actions">
+                                    <a ng-click="vm.toggleStatus(p.id,1)" ng-if="!p.effective">
+                                        <div class="action action-edit pull-left">
+                                            <i class="material-icons action-icon">vertical_align_top</i>
+                                        </div>
+                                    </a>
+                                    <a ng-click="vm.toggleStatus(p.id,0)" ng-if="p.effective">
+                                        <div class="action action-edit pull-left">
+                                            <i class="material-icons action-icon">vertical_align_bottom</i>
+                                        </div>
+                                    </a>
+                                    <a ui-sref="root.plan.edit({id: p.id })">
+                                        <div class="action action-edit pull-left">
+                                            <i class="material-icons action-icon">create</i>
+                                        </div>
+                                    </a>
+                                    <a ng-click="vm.showDeleteModal(u)">
+                                        <div class="action action-delete pull-left">
+                                            <i class="material-icons action-icon">delete</i>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div> <!-- / data table -->
+
+            </div>
+        </div>
+    </div>
+</div>

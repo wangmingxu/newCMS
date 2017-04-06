@@ -1,0 +1,57 @@
+
+<!-- main heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header">主面板</h3>
+        <page-loading ng-show="!vm.ready"></page-loading>
+    </div>
+</div>
+
+<div class="row">
+
+    <!-- materials count -->
+    <div class="col-md-4 col-sm-12">
+        <a ui-sref="root.material" class="dashboard-link">
+            <div class="count-container materials-count">
+                <div class="count-dark">
+                    <i class="material-icons">image</i>
+                </div>
+                <p>
+                    素材
+                    <span class="count-number" ng-bind="vm.materials_count"></span>
+                </p>
+            </div>
+        </a>
+    </div>
+
+    <!-- resources count -->
+    <div class="col-md-4 col-sm-12">
+        <a ui-sref="root.resource" class="dashboard-link">
+            <div class="count-container resources-count">
+                <div class="count-dark">
+                    <i class="material-icons">subtitles</i>
+                </div>
+                <p>
+                    资源位
+                    <span class="count-number" ng-bind="vm.resources_count"></span>
+                </p>
+            </div>
+         </a>
+    </div>
+
+    <!-- plans count -->
+    <div class="col-md-4 col-sm-12">
+        <a ui-sref="root.plan" class="dashboard-link">
+            <div class="count-container plans-count">
+                <div class="count-dark">
+                    <i class="material-icons">alarm</i>
+                </div>
+                <p>
+                    计划
+                    <span class="count-number" ng-bind="vm.plans_count"></span>
+                </p>
+            </div>
+        </a>
+    </div>
+
+</div>

@@ -1,0 +1,99 @@
+<!-- main heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header">素材列表</h3>
+        <page-loading ng-show="!vm.ready"></page-loading>
+    </div>
+</div>
+<div class="row" ng-show="vm.ready" ng-init="vm.getData()">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <!-- panel heading -->
+            <div class="panel-heading">
+                <a ui-sref="root.material.create">
+                    新增素材
+                </a>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="count-search">
+
+                    <!-- count -->
+                    <div class="count">
+                        Total <span ng-bind="vm.totalNum"></span> Materials
+                    </div>
+
+                    <!-- filter by material type -->
+                    <div class="filter pull-left">
+                        <span>Filter By:</span>
+                        <select ng-model="vm.typeFilter" ng-change="vm.getData()">
+                            <option value="image">图片素材</option>
+                            <option value="text">文本素材</option>
+                        </select>
+                    </div>
+
+                    <!-- search -->
+                    <div id="search">
+                        <i class="material-icons i-search">search</i>
+                        <input type="text" placeholder="搜索" ng-model="vm.search" ng-keydown="vm.liveSearch()" />
+                    </div>
+
+                </div>
+
+                <!-- data table -->
+                <div class="table-responsive">
+                    <table class="table table-striped text-center" id="dataTables-example">
+                        <thead>
+                        <tr>
+                            <th class="text-center">素材名称</th>
+                            <th class="text-center">素材类型</th>
+                            <th class="text-center">创建时间</th>
+                            <th class="table-actions text-center">操作</th>
+                        </tr>
+
+                        </thead>
+                        <tbody id="search_result">
+
+                        <tr class="odd gradeX" ng-repeat="m in vm.list">
+                                <td ng-bind="m.materialName"></td>
+                                <td>{{m.materialType=='image'?'图片素材':'文本素材'}}</td>
+                                <td>{{m.created_at | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td class="table-actions">
+                                    <a ng-href="{{m.content}}" target="_blank" ng-if="m.materialType=='image'">
+                                        <div class="action action-edit pull-left">
+                                            <i class="material-icons action-icon">visibility</i>
+                                        </div>
+                                    </a>
+                                    <a ng-href="data:text/html;charset=utf-8,{{m.content}}" target="_blank" ng-if="m.materialType=='text'">
+                                        <div class="action action-edit pull-left">
+                                            <i class="material-icons action-icon">visibility</i>
+                                        </div>
+                                    </a>
+                                    <a ui-sref="root.material.edit({id:m.id})" ng-if="m.materialType=='text'">
+                                        <div class="action action-delete pull-left">
+                                            <i class="material-icons action-icon">create</i>
+                                        </div>
+                                    </a>
+                                    <a ng-click="vm.delMaterial(m.id)">
+                                        <div class="action action-delete pull-left">
+                                            <i class="material-icons action-icon">delete</i>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div> <!-- / data table -->
+                <!-- / data table -->
+                <ul class="pagination text-center" style="padding-left:0px" ng-if="vm.totalPage>1">
+                  <li ng-class="vm.page==1?'disabled':'waves-effect'" ng-click="vm.getData(vm.page-1)"><a><i class="material-icons">chevron_left</i></a></li>
+                  <li class="waves-effect" ng-repeat="x in vm.totalPage | numToArr" ng-class="vm.page==x?'active':''" ng-click="vm.getData(x)"><a>{{x}}</a></li>
+                  <li ng-class="vm.page==vm.totalPage?'disabled':'waves-effect'" ng-click="vm.getData(vm.page+1)"><a><i class="material-icons">chevron_right</i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

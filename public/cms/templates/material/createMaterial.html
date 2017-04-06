@@ -1,0 +1,123 @@
+
+<!-- main header -->
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header">素材管理</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+
+            <!-- heading -->
+            <div class="panel-heading panel-heading-admin">
+                编辑素材
+            </div>
+
+            <div class="panel-body">
+
+                <!-- Visible -->
+                <div class="form-group">
+                    <label for="visible">素材类型</label>
+                    <div class="radio">
+                        <label>
+                            <input ng-model="vm.material.materialType" checked="checked" type="radio" value="image" name="materialType">
+                            图片
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input ng-model="vm.material.materialType" type="radio" value="text" name="materialType">
+                            文本
+                        </label>
+                    </div>
+                </div>
+
+                <div class="imageUpload" ng-if="vm.material.materialType=='image'">
+                  <!-- image -->
+                  <!-- <div class="form-group">
+                      <div class="input-group">
+                          <div class="uploader">
+                              <button onclick="document.getElementById('single-uploader').click()" class="btn btn-upload">
+                                  Upload Main Image
+                                  <i class="material-icons upload-icon">cloud_upload</i>
+                              </button>
+                              <input type="file" fileread="vm.post.file" id="single-uploader">
+                          </div>
+                      </div>
+                  </div> -->
+
+                  <!-- preview image -->
+                  <!-- <div class="image-container" ng-show="vm.post.file">
+                      <div class="img-btn-container animated bounceInDown">
+                          <div class="a-image">
+                              <img ng-src="{{ vm.post.file.isImage && vm.post.file.url || null }}" ng-show="vm.post.file.isImage">
+                              <div class="not-image" ng-show="!vm.post.file.isImage">
+                                  <p><i class="material-icons">warning</i></p>
+                                  <p>File is not an Image</p>
+                              </div>
+                          </div>
+                          <button class="btn btn-dlt-img" ng-click="vm.hideImage()">Delete</button>
+                      </div>
+                  </div> -->
+
+                  <!-- multiple image -->
+                  <div class="form-group">
+                      <div class="input-group">
+                          <div class="uploader">
+                              <button onclick="document.getElementById('multiple-uploader').click()" class="btn btn-upload">
+                                  Upload Multiple Images
+                                  <i class="material-icons upload-icon">cloud_upload</i>
+                              </button>
+                              <input type="file" fileread-multiple="vm.material.files" id="multiple-uploader" multiple>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- preview multiple images -->
+                  <div class="image-container" ng-show="vm.material.files">
+                      <div class="img-btn-container animated bounceInDown" ng-repeat="file in vm.material.files">
+                          <div class="a-image">
+                              <img ng-src="{{ file.isImage && file.url || null }}" ng-show="file.isImage">
+                              <div class="not-image" ng-show="!file.isImage">
+                                  <p><i class="material-icons">warning</i></p>
+                                  <p>File is not an Image</p>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="input-group">
+                                  <input class="imageName" type="text" placeholder="素材名称" class="form-control" ng-model="file.name"/>
+                              </div>
+                          </div>
+                          <button class="btn btn-dlt-img" ng-click="vm.hideImage(file)">Delete</button>
+                      </div>
+                  </div>
+
+                  <!-- Submit -->
+                  <div class="form_submit">
+                      <img ng-show="vm.loading" src='../../img/main/preloader.gif' alt='preloader gif'>
+                      <button ng-show="!vm.loading"  ng-click="vm.uploadImage()" class="btn btn-submit">Create</button>
+                  </div>
+
+                </div>
+
+                <div class="textUpload" ng-if="vm.material.materialType=='text'">
+                  <!-- name -->
+                  <div class="form-group">
+                    <label for="">素材名称</label>
+                      <div class="input-group">
+                          <input type="text" placeholder="素材名称" class="form-control" ng-model="vm.material.materialName"/>
+                      </div>
+                  </div>
+                  <script id="UEcontainer" name="content" type="text/plain" style="width:1150px;height:500px;" ueditor></script>
+                  <!-- Submit -->
+                  <div class="form_submit">
+                      <button  ng-click="vm.uploadText()" class="btn btn-submit">创建</button>
+                  </div>
+                </div>
+            </div> <!-- / panel body -->
+        </div>
+    </div>
+</div>

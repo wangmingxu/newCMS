@@ -1,0 +1,17 @@
+<button class="btn btn-default" type="submit" data-target="text_choose">插入文本素材</button>
+<div id="text_choose" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>选择文本素材</h4>
+    <div class="list-group">
+      <a class="list-group-item" ng-repeat="item in list" ng-class="item.id==choose.id?'active':''" ng-click="selectText(item)">
+        {{item.materialName}}
+      </a>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="pageInfo">
+      每页显示{{perpage}}条 <a ng-if="page!==1" ng-click="getList(page-1)">上一页</a> {{page}}/{{totalPage}} <a ng-if="page!==totalPage" ng-click="getList(page+1)">下一页</a>
+    </div>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat " ng-click="insertText()">插入</a>
+  </div>
+</div>

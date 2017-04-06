@@ -1,0 +1,46 @@
+<div class="navbar-default sidebar" role="navigation" id="sidebar">
+    <div class="sidebar-nav navbar-collapse" id="navbar-collapse">
+        <div class="sidebar_links">
+
+            <ul class="nav" id="side-menu">
+                <li class='visible-xs' ng-class="{active: mainUrl == 'profile'}">
+                    <a ui-sref="profile">
+                        <i class="material-icons">account_box</i>
+                        Me
+                    </a>
+                </li>
+                <li ng-class="{active: mainUrl.indexOf('dashboard')>-1}">
+                    <a ui-sref="root.dashboard">
+                        <i class="material-icons">equalizer</i>
+                        主面板
+                    </a>
+                </li>
+                <li ng-class="{active: mainUrl.indexOf('material')>-1}">
+                    <a ui-sref="root.material">
+                        <i class="material-icons pull-left">image</i>
+                        素材管理
+                    </a>
+                </li>
+                <li ng-class="{active: mainUrl.indexOf('resource')>-1}">
+                    <a ui-sref="root.resource">
+                        <i class="material-icons">subtitles</i>
+                        资源位管理
+                    </a>
+                </li>
+                <li ng-class="{active: mainUrl.indexOf('plan')>-1}">
+                    <a ui-sref="root.plan">
+                        <i class="material-icons">content_paste</i>
+                        计划管理
+                    </a>
+                </li>
+                <li class='visible-xs'>
+                    <a href="/admin/logout" target="_self">
+                        <i class="material-icons">exit_to_app</i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
