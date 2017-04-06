@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    port: '3000',
+    port: '18080',
     ROUTE_BASE_PATH: '/node',
     qiniu: {
         bucket: 'mxqiniu',
