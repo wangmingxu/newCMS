@@ -26,7 +26,7 @@ module.exports = (router) => {
       }
       // 客户端发起其它请求
       else {
-          var configJson = JSON.parse(fs.readFileSync(path.join(global.SERVER_ROOT,'public/cms/ueditor/nodejs/config.json')));
+          var configJson = JSON.parse(fs.readFileSync(path.join(global.SERVER_ROOT,'public/cms/lib/ueditor/nodejs/config.json')));
           res.jsonp(configJson);
       }
   }));
