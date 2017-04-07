@@ -91,7 +91,7 @@
                                   <input class="imageName" type="text" placeholder="素材名称" class="form-control" ng-model="file.name"/>
                               </div>
                           </div>
-                          <button class="btn btn-dlt-img" ng-click="vm.hideImage(file)">Delete</button>
+                          <button class="btn btn-dlt-img" ng-click="vm.material.files.splice($index, 1)">Delete</button>
                       </div>
                   </div>
 
