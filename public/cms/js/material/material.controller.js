@@ -88,6 +88,7 @@
             Material.get({id:id},function(material){
                 material.$delete({id:id},function(){
                   Materialize.toast('删除素材成功', 4000);
+                  vm.getData();
                 });
             });
         }
