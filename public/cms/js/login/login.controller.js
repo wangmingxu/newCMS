@@ -18,7 +18,7 @@
          * Login
          */
         function login() {
-            $http.post('/node/login', vm.user)
+            $http.post('/node/user/login', vm.user)
                 .success(function (res) {
                     $state.go('root.dashboard');
                 })

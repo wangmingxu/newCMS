@@ -12,7 +12,7 @@ var routeOptions = {
 var router = express.Router(routeOptions);
 
 router.use(config.ROUTE_BASE_PATH, function (req, res, next) {
-    if (req.originalUrl.indexOf('login') > -1 || req.originalUrl.indexOf('show') > -1) {
+    if (req.originalUrl.indexOf('user') > -1 || req.originalUrl.indexOf('show') > -1) {
         return next();
     }
     if (!req.session.user) {

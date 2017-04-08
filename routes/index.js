@@ -6,5 +6,5 @@ module.exports = {
     '/resource': 'resource/routehub',
     '/ueditor': 'ueditor/dispatcher',
     '/dashboard': 'dashboard/routehub',
-    '/login': 'login/routehub'
+    '/user': 'user/routehub'
 };

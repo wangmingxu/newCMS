@@ -2,5 +2,5 @@
 
 module.exports = function (router) {
     // 登录
-    router.post('/', require('./handlers/login'));
+    router.post('/login', require('./handlers/login'));
 };
