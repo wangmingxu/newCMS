@@ -9,6 +9,7 @@
             'app.router',
             'app.components',
             'app.services',
+            'app.login',
             'app.dashboard',
             'app.material',
             'app.resource',
