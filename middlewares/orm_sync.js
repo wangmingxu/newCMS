@@ -7,11 +7,11 @@ var orm = require('orm');
 var paging = require("orm-paging");
 var modts = require('orm-timestamps');
 var _ = require('lodash');
-var db_config = require('../database-test.js');
+var database = require('../database-prod.js');
 var Model = require('../models');
 var ModelLink = require('../models/ModelLink');
 
-module.exports = orm.express(db_config.mysql, {
+module.exports = orm.express(database.mysql, {
     define: function define(db, models, next) {
         //自动生成时间戳
         db.use(modts, {
