@@ -109,7 +109,7 @@
             Plan.get({id:$stateParams.id},function(plan){
                 angular.extend(plan,vm.plan);
                 plan.$save({id:$stateParams.id},function(){
-                  Materialize.toast('更新素材成功', 4000);
+                  Materialize.toast('更新计划成功', 4000);
                   vm.getPlan();
                 });
             });

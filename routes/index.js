@@ -3,5 +3,6 @@ module.exports = {
     '/plan': 'plan/routehub',
     '/resource': 'resource/routehub',
     '/ueditor': 'ueditor/dispatcher',
-    '/dashboard': 'dashboard/routehub'
+    '/dashboard': 'dashboard/routehub',
+    '/user': 'user/routehub'
 };
