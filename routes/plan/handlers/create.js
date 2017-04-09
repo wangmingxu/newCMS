@@ -26,6 +26,8 @@ var CreatePlan = function (_RouterBase) {
       var _this2 = this;
 
       var newPlan = Object.assign({}, this.req.body);
+      newPlan.startTime = this.req.body.startTime || Date.now();
+      newPlan.endTime = this.req.body.endTime || Date.now();
       newPlan.interface = JSON.stringify(newPlan.interface);
       this.req.models.Plan.create(newPlan, function (err, results) {
         if (err) throw err;
