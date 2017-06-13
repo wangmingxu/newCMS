@@ -6,7 +6,7 @@ const orm = require('orm');
 const paging = require("orm-paging");
 const modts = require('orm-timestamps');
 const _ = require('lodash');
-const database = require('../database-test.js');
+const database = require('../database-prod.js');
 const Model = require('../models');
 const ModelLink = require('../models/ModelLink');
 
